@@ -70,7 +70,7 @@ export default function Home({navigation}) {
       <View>
       <View style={[styles.header]}>
         <View style={styles.headerItem}>
-	  <Image source={require('../assets/unity_logo.png')} style={[styles.logo_image, styles.headerSubItem]}/>
+	  <Image source={require('../assets/unity_logo_no_background.png')} style={[styles.logo_image, styles.headerSubItem]}/>
 	  <Text style={[styles.headerSubItem, styles.logoText]}>Unity Church</Text>
 	</View>
 	<View style={styles.headerItem}>
