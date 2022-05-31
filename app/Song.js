@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
-export default function Song({title, composer, link, navigation}) {
+export default function Song({title, composer, link, song, navigation}) {
   const switchScreen = () => {
-    navigation.navigate('Song', {title, composer, link})
+    navigation.navigate('Song', {title, composer, link, song})
   }
   return (
     <TouchableOpacity 

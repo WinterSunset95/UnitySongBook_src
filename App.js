@@ -23,10 +23,10 @@ function HomeLoadingScreen({navigation}) {
   )
 }
 function SongScreen({route}) {
-  const {title, composer, link} = route.params
+  const {title, composer, link, song} = route.params
   return (
     <View style={styles.container}>
-      <SongPage title={title} composer={composer} link={link}/>
+      <SongPage title={title} composer={composer} link={link} song={song}/>
       <StatusBar style="auto" />
     </View>
   );

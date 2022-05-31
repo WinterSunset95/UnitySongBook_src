@@ -91,8 +91,8 @@ export default function Home({navigation}) {
       
       <ScrollView style={styles.body}>
 	{
-	  songList.map(({title, composer, link}) => {
-	    return <Song key={title} title={title} composer={composer} link={link} navigation={navigation}/>
+	  songList.map(({title, composer, link, song}) => {
+	    return <Song key={title} title={title} composer={composer} link={link} song={song} navigation={navigation}/>
 	  })
 	}
       </ScrollView>
