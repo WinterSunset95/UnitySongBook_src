@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+@wintersunset95__UnityChurch.jks
 
 # macOS
 .DS_Store
