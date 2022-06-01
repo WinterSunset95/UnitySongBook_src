@@ -2,15 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 import { StyleSheet, Text, View, ScrollView, Image, TextInput, TouchableOpacity, Keyboard } from 'react-native'
 import Song from './Song'
+import splash from '../assets/app_splash.png'
 
 export default function Home({navigation}) {
   const [json, setJson] = useState()
   const [search, setSearch] = useState("")
   const [text, setText] = useState("")
   const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-  const switchScreen = () => {
-    navigation.navigate('LoadHome')
-  }
   function GetSortOrder(prop) {    
     return function(a, b) {    
       if (a[prop] > b[prop]) {    
@@ -102,9 +100,7 @@ export default function Home({navigation}) {
   catch(err) {
     return (
       <View>
-	<TouchableOpacity onPress={switchScreen}>
-        <Text>Loading . . . .</Text>
-	</TouchableOpacity>
+	<Image source={splash} style={{height: '100%', width: '100%'}}/>
       </View>
     )
   }

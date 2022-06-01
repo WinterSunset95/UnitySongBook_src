@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SongPage from './app/components/SongPage';
-import HomeLoadingPage from './app/components/HomeLoadingPage';
 import Home from './app/Home'
 
 const Stack = createNativeStackNavigator()
@@ -14,13 +13,6 @@ function HomeScreen({navigation}) {
       <StatusBar style="auto" />
     </View>
   );
-}
-function HomeLoadingScreen({navigation}) {
-  return (
-    <View>
-      <HomeLoadingPage navigation={navigation} />
-    </View>
-  )
 }
 function SongScreen({route}) {
   const {title, composer, link, song} = route.params
@@ -40,7 +32,6 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Song" component={SongScreen}/>
-	<Stack.Screen name="LoadHome" component={HomeLoadingScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

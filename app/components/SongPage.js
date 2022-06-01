@@ -38,27 +38,32 @@ export default function SongPage({title, composer, link, song}) {
 
   useEffect(() => {
     LoadAudio();
+    return sound
+    ? () => {
+      sound.current.unloadAsync()
+    }
+    : undefined
   }, []);
 
   const PlayAudio = async () => {
-    setPlaying('playing')
     try {
       const result = await sound.current.getStatusAsync();
       if (result.isLoaded) {
         if (result.isPlaying === false) {
           sound.current.playAsync();
+	  setPlaying('playing')
         }
       }
     } catch (error) {}
   };
 
   const PauseAudio = async () => {
-    setPlaying('not playing')
     try {
       const result = await sound.current.getStatusAsync();
       if (result.isLoaded) {
         if (result.isPlaying === true) {
           sound.current.pauseAsync();
+	  setPlaying('not playing')
         }
       }
     } catch (error) {}
@@ -85,25 +90,6 @@ export default function SongPage({title, composer, link, song}) {
       SetLoading(false);
     }
   };
-//  async function playSound(bool) {
-//    const {sound: playbackObject} = await Audio.Sound.createAsync(
-//      {uri: 'https://wintersunset95.github.io/UnitySongBook/audio/FadedTrimmed.aac'}, 
-//      {shouldPlay: true}
-//    )
-//    setSound(playbackObject)
-//    if (bool === 'play' ){
-//      await playbackObject.current.playAsync()
-//    } else {
-//      await playbackObject.pauseAsync()
-//    }
-//  }
-//  React.useEffect(() => {
-//  return sound
-//    ? () => {
-//        console.log('Unloading Sound');
-//        sound.unloadAsync(); }
-//    : undefined;
-//  }, [sound]);
   return (
     <View>
     <ScrollView>
