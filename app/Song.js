@@ -1,9 +1,16 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
-export default function Song({title, composer, link, song, navigation}) {
+export default function Song({title, composer, link, song, navigation, array}) {
   const switchScreen = () => {
-    navigation.navigate('Song', {title, composer, link, song})
+    for(let i=0; i<array.length; i++){
+      item = array[i]
+      if(title == item.title){
+	index = i
+	console.log(index)
+	navigation.navigate('Song', {index, array})
+      }
+    }
   }
   return (
     <TouchableOpacity 

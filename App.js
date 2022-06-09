@@ -3,9 +3,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SongPage from './app/components/SongPage';
 import Home from './app/Home'
+import Pager from './app/components/Pager'
 
 const Stack = createNativeStackNavigator()
 
+// function PagerScreen({route}) {
+//   const {title, composer, link, song, array} = route.params
+//   return (
+//     <View style={styles.container}>
+//     <Pager array={array} title={title} composer={composer} link={link} song={song}/>
+//     <StatusBar style="auto" />
+//     </View>
+//   );
+// }
 function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
@@ -15,10 +25,10 @@ function HomeScreen({navigation}) {
   );
 }
 function SongScreen({route}) {
-  const {title, composer, link, song} = route.params
+  const {index, array} = route.params
   return (
     <View style={styles.container}>
-      <SongPage title={title} composer={composer} link={link} song={song}/>
+      <SongPage index={index} array={array}/>
       <StatusBar style="auto" />
     </View>
   );
@@ -32,6 +42,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Song" component={SongScreen}/>
+	{/* <Stack.Screen name="Pager" component={PagerScreen} options={{headerShown: false}}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
