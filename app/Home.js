@@ -1,6 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import { FontAwesome } from '@expo/vector-icons'
-import { StyleSheet, Text, View, ScrollView, Image, TextInput, TouchableOpacity, Keyboard } from 'react-native'
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  ScrollView, 
+  Image, 
+  TextInput, 
+  TouchableOpacity, 
+  Keyboard,
+  FlatList
+} from 'react-native'
 import Song from './Song'
 import splash from '../assets/app_splash.png'
 
@@ -32,6 +42,7 @@ export default function Home({navigation}) {
       title_index = title_string.charAt(0)
       item["class"] = title_index
     }
+    window.array = file
     for(let i = 0; i<file.length; i++){
       item = file[i]
       const search_text = search.toLowerCase()
@@ -63,6 +74,17 @@ export default function Home({navigation}) {
   catch(err) {
     console.log('data does not exist')
   }
+
+  const renderItem = ({item}) => {
+    // const title = item.title
+    // for(let i=0; i<array.length; i++){
+    //   const item = array[i]
+    //   if(title == item.title){
+	// window.index = i
+    //   }
+    // }
+    return <Song navigation={navigation} array={array} title={item.title} composer={item.composer} link={item.link} song={item.song}/>
+  }
   try {
     return (
       <View>
@@ -86,14 +108,12 @@ export default function Home({navigation}) {
 	  </TouchableOpacity>
 	</View>
       </View>
-      
-      <ScrollView style={styles.body}>
-	{
-	  songList.map(({title, composer, link, song}) => {
-	    return <Song key={title} title={title} composer={composer} link={link} song={song} navigation={navigation}/>
-	  })
-	}
-      </ScrollView>
+      <FlatList 
+	style={styles.body}
+	data={json}	
+	renderItem={renderItem}
+	keyExtractor={item => item.title}
+	/>
       </View>
     )
   }
@@ -109,6 +129,7 @@ export default function Home({navigation}) {
 const styles = StyleSheet.create({
   body: {
     padding: 10, 
+    height: '100%'
   },
   header: {
     height: 80,
