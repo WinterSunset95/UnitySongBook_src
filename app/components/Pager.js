@@ -1,70 +1,156 @@
-import React, {useState} from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
+import React, {useState, useEffect, useRef} from 'react'
+import { 
+  StyleSheet, 
+  View, 
+  Text, 
+  ScrollView, 
+  TouchableOpacity, 
+  ActivityIndicator, 
+  Button, 
   FlatList,
-  Dimensions
-} from 'react-native'
+  Dimensions,
+  Animated} from 'react-native'
+import { Feather, AntDesign } from '@expo/vector-icons';
+import {Audio} from 'expo-av'
+import Slider from '@react-native-community/slider'
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import SongPage from './SongPage'
 
-function Page({title, composer, link, song}) {
-  return (
-      <View style={{
-	height: '100%', 
-	width: Dimensions.get('window').width, 
-	}}>  
-	<SongPage title={title} composer={composer} link={link} song={song}/>
-      </View>
-  )
-}
-export default function Pager({title, composer, link, song, array}) {
-  () => {
-    for(let i=0; i<array.length; i++) {
-      item = array[i]
-      if(title === item.title){
-	window.index = i
+export default function Pager({index, array}) {
+  const [ref, setRef] = useState(null)
+  const [songindex, setSongindex] = useState(index)
+  const dataItem = array[songindex]
+  const {title, composer, link, song} = dataItem
+  const array_length = array.length
+  const myData = [
+    {
+      title: 1,
+      'none': false,
+      direction: 'left'
+    },
+    {
+      title: title,
+      composer: composer,
+      link: link,
+      song: song,
+      to_render: true,
+      direction: false
+    },
+    {
+      title: 3,
+      'none': false,
+      direction: 'right'
+    }
+  ]
+  const goToPage = (dir) => {
+    ref.scrollToIndex({
+      animated: false,
+      index: 1,
+      viewPosition: 0
+    })
+    if(dir == 'left'){
+      if(songindex != 0){
+	setSongindex(songindex - 1)
       }
-      else {
-	console.log('')
+    }
+    else {
+      if(songindex != array_length - 1){
+	setSongindex(songindex + 1)
       }
     }
   }
-  const renderItem = ({item}) => {
-    return (
-      <Page key={item.title} title={item.title} composer={item.composer} link={item.link} song={item.song}/>
-    )
+  const MainView = ({title, composer, link, song, to_render, direction}) => {
+    if(to_render == true){
+      return (
+	<SongPage title={title} composer={composer} link={link} song={song}/>
+//	<View style={styles.loading}>
+//	  <Text>This is supposed to be the song page {title} {composer} {link} {song}</Text>
+//
+//	</View>
+      )
+    }
+    else {
+      return ( 
+	<View 
+	  style={styles.loading}
+	>
+	  <Text>Loading . . . </Text>
+	</View>
+      )
+    }
+  }
+  const renderItem = ({item, index}) => {
+    return <MainView direction={item.direction} key={item.title} title={item.title} composer={item.composer} link={item.link} song={item.song} to_render={item.to_render} />
   }
   return (
-    <View>
-      <FlatList style={{borderWidth: 5, height: '100%', width: '100%'}}
-	data={array}
-	ref={(ref) => {
-	  setRef(ref)
-	}}
-	renderItem={renderItem}
-	keyExtractor={item => item.title}
-	horizontal
-	pagingEnabled={true}
-	showsHorizontalScrollIndicator={false}
-	// getItemLayout={(array, index) => (
-	//   {length: array.length, offset: array.length * index, index}
-	// )}
-	initialNumToRender={to_scroll}
-	initialScrollIndex={to_scroll}
-      />
-    </View>
+  <View>
+    <FlatList 
+      data={myData}
+      ref={(ref) => {
+	setRef(ref)
+      }}
+      renderItem={renderItem}
+      keyExtractor={item => item.title}
+      horizontal
+      pagingEnabled={true}
+      initialScrollIndex={1}
+      extraData={title}
+      onScroll={(r) => {
+	const width = r.nativeEvent.layoutMeasurement.width
+	if(r.nativeEvent.contentOffset.x == 0){
+	  goToPage('left')	  
+	} else if(r.nativeEvent.contentOffset.x == width * 2) {
+	  goToPage('right')
+	} 
+      }}
+    />
+  </View>
   )
 }
 
-// const styles = StyleSheet.create({
-//   main: {
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   },
-//   flat: {
-//     width: '100%',
-//     height: '100%',
-//     backgroundColor: '#000000'
-//   }
-// })
+const styles = StyleSheet.create({
+  audio: {
+    width: '100%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
+  audioItem: {
+    margin: 5
+  }, 
+  body: {
+    minHeight: '50%', 
+    marginTop: 50,
+  },
+  container: {
+    width: Dimensions.get('window').width,
+    alignItems: 'center'
+  },
+  composer: {
+    fontSize: 15,
+    marginHorizontal: 5,
+  },
+  header: {
+    alignItems: 'flex-end'
+  },
+  loading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+  title: {
+    fontSize: 30,
+    margin: 5,
+  },
+  zoomer: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10, 
+    alignItems: 'flex-end'
+  },
+  zoomItem: {
+    margin: 10, 
+  }
+})
