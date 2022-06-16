@@ -23,10 +23,12 @@ export default function SongPage({title, composer, link, song}) {
   const [Loaded, SetLoaded] = useState(false)
   const [Loading, SetLoading] = useState(false)
   const [playing, setPlaying] = useState('not playing')
+  const [audlen, setAudlen] = useState(0)
+  const [slival, setSlival] = useState(0)
   const sound = useRef(new Audio.Sound())
   const AudioStatus = () => {
     if(Loaded == true) {
-      return <Text style={styles.audioItem}>Demo available</Text>
+      return <AudioContainer />
     } else {
       return <Text style={styles.audioItem}>Demo is either unavailable or loading, please wait</Text>
     }
@@ -43,6 +45,29 @@ export default function SongPage({title, composer, link, song}) {
 	  onPress={PlayAudio} style={styles.zoomItem} name="play" size={40} color="black" />
     )}
   }
+  const AudioContainer = () => {
+    return (
+	  <View style={styles.audioContainer}>
+	    <PlayPause style={{
+	      paddingHorizontal: 5
+	    }}/>
+	    <View style={styles.audioSlider}>
+	    <Slider 
+	      style={{width: 200, height: 40}}
+	      minimumValue={0}
+	      maximumValue={audlen}
+	      value={slival}
+	      onSlidingComplete={(value) => {
+		SliderPlay(value)
+		setSlival(value)
+	      }}
+	      minimumTrackTintColor="white"
+	      maximumTrackTintColor="#000000"
+	    />
+	    </View>
+	  </View>
+    )
+  }
   async function getLyrics() {
     let response = await fetch(link)
     let my_json = await response.text()
@@ -55,22 +80,51 @@ export default function SongPage({title, composer, link, song}) {
     return sound
     ? () => {
       sound.current.unloadAsync()
+      setSlival(0)
+      setAudlen(0)
+      setPlaying('not playing')
     }
     : undefined
   }, []);
-
+  const _onPlaybackStatusUpdate = async () => {
+    const result = await sound.current.getStatusAsync()
+    setSlival(result.positionMillis)
+  }
+  const calculate = () => {
+    return 0
+  }
   const PlayAudio = async () => {
     try {
       const result = await sound.current.getStatusAsync();
+      console.log(result)
       if (result.isLoaded) {
         if (result.isPlaying === false) {
-          sound.current.playAsync();
+	  sound.current.playAsync()
 	  setPlaying('playing')
+	  sound.current.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate)
         }
       }
     } catch (error) {}
   };
-
+  const SliderPlay = async (val) => {
+    try {
+      const result = await sound.current.getStatusAsync()
+      if (result.isLoaded) {
+	if (result.isPlaying === false) {
+	  setPlaying('not playing')
+	  sound.current.setPositionAsync(val)
+	  PlayAudio()
+	}
+	else {
+	  sound.current.stopAsync()
+	  setPlaying('not playing')
+	  sound.current.setPositionAsync(val)
+	  PlayAudio()
+	}
+      }
+    }
+    catch (error) {}
+  }
   const PauseAudio = async () => {
     try {
       const result = await sound.current.getStatusAsync();
@@ -89,6 +143,8 @@ export default function SongPage({title, composer, link, song}) {
     if (checkLoading.isLoaded === false) {
       try {
         const result = await sound.current.loadAsync({uri: song}, {}, true);
+	const duration = await result.durationMillis
+	duration ? setAudlen(duration) : console.log('not passed')
         if (result.isLoaded === false) {
           SetLoading(false);
           console.log('Error in Loading Audio');
@@ -105,7 +161,7 @@ export default function SongPage({title, composer, link, song}) {
     }
   };
   return (
-  <View>
+    <View>
 	<ScrollView
 	  style={{
 	    width: Dimensions.get('window').width
@@ -124,20 +180,12 @@ export default function SongPage({title, composer, link, song}) {
 	  <View style={styles.audio}>
 	    <AudioStatus />
 	  </View>
-	  <Slider 
-	    style={{width: 200, height: 40}}
-	    minimumValue={0}
-	    maximumValue={1}
-	    minimumTrackTintColor="f0f0f0"
-	    maximumTrackTintColor="#000000"
-	  />
 	</ScrollView>
       <View style={styles.zoomer}>
-	<PlayPause />
 	<AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
 	<AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
       </View>
-  </View>
+    </View>
   )
 }
 
@@ -149,9 +197,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row'
   },
+  audioContainer: {
+    width: '100%',
+    height: 100,
+    marginBottom: 20,
+    marginLeft: 20, 
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
   audioItem: {
     margin: 5
   }, 
+  audioSlider: {
+    width: 200,
+    height: 40,
+    borderRadius: 100,
+    backgroundColor: 'black'
+  },
   body: {
     minHeight: '50%', 
     marginTop: 50,
