@@ -28,46 +28,47 @@ export default function SongPage({title, composer, link, song}) {
   const sound = useRef(new Audio.Sound())
   const AudioStatus = () => {
     if(Loaded == true) {
-      return <AudioContainer />
+      return <PlayPause />
     } else {
-      return <Text style={styles.audioItem}>Demo is either unavailable or loading, please wait</Text>
+      return <Text></Text>
     }
   }
   const PlayPause = () => {
     if(playing === 'playing') {
       return (
-	<AntDesign 
-	  onPress={PauseAudio} style={styles.zoomItem} name="pausecircle" size={40} color="black" />
-    )}
-    else {
+	      <AntDesign 
+	        onPress={PauseAudio} style={styles.zoomItem} name="pausecircle" size={40} color="black" />
+      )
+    } else {
       return (
-	<AntDesign 
-	  onPress={PlayAudio} style={styles.zoomItem} name="play" size={40} color="black" />
-    )}
+	      <AntDesign 
+	        onPress={PlayAudio} style={styles.zoomItem} name="play" size={40} color="black" />
+      )
+    }
   }
-  const AudioContainer = () => {
-    return (
-	  <View style={styles.audioContainer}>
-	    <PlayPause style={{
-	      paddingHorizontal: 5
-	    }}/>
-	    <View style={styles.audioSlider}>
-	    <Slider 
-	      style={{width: 200, height: 40}}
-	      minimumValue={0}
-	      maximumValue={audlen}
-	      value={slival}
-	      onSlidingComplete={(value) => {
-		SliderPlay(value)
-		setSlival(value)
-	      }}
-	      minimumTrackTintColor="white"
-	      maximumTrackTintColor="#000000"
-	    />
-	    </View>
-	  </View>
-    )
-  }
+  // const AudioContainer = () => {
+  //   return (
+	  // <View style={styles.audioContainer}>
+	    // <PlayPause style={{
+	      // paddingHorizontal: 5
+	    // }}/>
+	    // <View style={styles.audioSlider}>
+	    // <Slider 
+	      // style={{width: 200, height: 40}}
+	      // minimumValue={0}
+	      // maximumValue={audlen}
+	      // value={slival}
+	      // onSlidingComplete={(value) => {
+		// SliderPlay(value)
+		// setSlival(value)
+	      // }}
+	      // minimumTrackTintColor="white"
+	      // maximumTrackTintColor="#000000"
+	    // />
+	    // </View>
+	  // </View>
+  //   )
+  // }
   async function getLyrics() {
     let response = await fetch(link)
     let my_json = await response.text()
@@ -86,52 +87,52 @@ export default function SongPage({title, composer, link, song}) {
     }
     : undefined
   }, []);
-  const _onPlaybackStatusUpdate = async () => {
-    const result = await sound.current.getStatusAsync()
-    setSlival(result.positionMillis)
-  }
-  const calculate = () => {
-    return 0
-  }
+  // const _onPlaybackStatusUpdate = async () => {
+  //   const result = await sound.current.getStatusAsync()
+  //   setSlival(result.positionMillis)
+  // }
+  // const calculate = () => {
+  //   return 0
+  // }
   const PlayAudio = async () => {
     try {
       const result = await sound.current.getStatusAsync();
       console.log(result)
       if (result.isLoaded) {
         if (result.isPlaying === false) {
-	  sound.current.playAsync()
-	  setPlaying('playing')
-	  sound.current.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate)
+     	  sound.current.playAsync()
+	      setPlaying('playing')
+	  // sound.current.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate)
         }
       }
     } catch (error) {}
   };
-  const SliderPlay = async (val) => {
-    try {
-      const result = await sound.current.getStatusAsync()
-      if (result.isLoaded) {
-	if (result.isPlaying === false) {
-	  setPlaying('not playing')
-	  sound.current.setPositionAsync(val)
-	  PlayAudio()
-	}
-	else {
-	  sound.current.stopAsync()
-	  setPlaying('not playing')
-	  sound.current.setPositionAsync(val)
-	  PlayAudio()
-	}
-      }
-    }
-    catch (error) {}
-  }
+  // const SliderPlay = async (val) => {
+  //   try {
+  //     const result = await sound.current.getStatusAsync()
+  //     if (result.isLoaded) {
+	// if (result.isPlaying === false) {
+	  // setPlaying('not playing')
+	  // sound.current.setPositionAsync(val)
+	  // PlayAudio()
+	// }
+	// else {
+	  // sound.current.stopAsync()
+	  // setPlaying('not playing')
+	  // sound.current.setPositionAsync(val)
+	  // PlayAudio()
+	// }
+  //     }
+  //   }
+  //   catch (error) {}
+  // }
   const PauseAudio = async () => {
     try {
       const result = await sound.current.getStatusAsync();
       if (result.isLoaded) {
         if (result.isPlaying === true) {
           sound.current.pauseAsync();
-	  setPlaying('not playing')
+	        setPlaying('not playing')
         }
       }
     } catch (error) {}
@@ -143,8 +144,8 @@ export default function SongPage({title, composer, link, song}) {
     if (checkLoading.isLoaded === false) {
       try {
         const result = await sound.current.loadAsync({uri: song}, {}, true);
-	const duration = await result.durationMillis
-	duration ? setAudlen(duration) : console.log('not passed')
+	      // const duration = await result.durationMillis
+	      // duration ? setAudlen(duration) : console.log('not passed')
         if (result.isLoaded === false) {
           SetLoading(false);
           console.log('Error in Loading Audio');
@@ -162,28 +163,26 @@ export default function SongPage({title, composer, link, song}) {
   };
   return (
     <View>
-	<ScrollView
-	  style={{
-	    width: Dimensions.get('window').width
-	  }}
-	  showsVerticalScrollIndicator={false}
-	>
-	  <View style={styles.container}>
-	    <View style={styles.header}>
-	      <Text style={styles.title}>{title}</Text>
-	      <Text style={styles.composer}> - {composer}</Text>
-	    </View>
-	    <View style={styles.body}>
-	      <Text style={{fontSize: zoom, padding: 10}}>{lyrics}</Text>
-	    </View>
-	  </View>
-	  <View style={styles.audio}>
-	    <AudioStatus />
-	  </View>
-	</ScrollView>
+    	<ScrollView
+	      style={{
+	        width: Dimensions.get('window').width
+	      }}
+	  s   howsVerticalScrollIndicator={false}
+	    >
+	      <View style={styles.container}>
+	        <View style={styles.header}>
+	          <Text style={styles.title}>{title}</Text>
+	          <Text style={styles.composer}> - {composer}</Text>
+	        </View>
+	        <View style={styles.body}>
+	          <Text style={{fontSize: zoom, padding: 10}}>{lyrics}</Text>
+	        </View>
+	      </View>
+	    </ScrollView>
       <View style={styles.zoomer}>
-	<AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
-	<AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
+        <AudioStatus />
+	      <AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
+	      <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
       </View>
     </View>
   )
