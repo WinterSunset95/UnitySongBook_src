@@ -26,6 +26,7 @@ export default function SongPage({title, composer, link, song}) {
   const [audlen, setAudlen] = useState(0)
   const [slival, setSlival] = useState(0)
   const sound = useRef(new Audio.Sound())
+// <<<<<<< HEAD
   const AudioStatus = () => {
     if(Loaded == true) {
       return <PlayPause />
@@ -33,6 +34,9 @@ export default function SongPage({title, composer, link, song}) {
       return <Text></Text>
     }
   }
+// =======
+  const array_length = array.length
+// >>>>>>> 9e604ff (commiting to main branch)
   const PlayPause = () => {
     if(playing === 'playing') {
       return (
@@ -81,8 +85,11 @@ export default function SongPage({title, composer, link, song}) {
     return sound
     ? () => {
       sound.current.unloadAsync()
-      setSlival(0)
-      setAudlen(0)
+// <<<<<<< HEAD
+//       setSlival(0)
+//       setAudlen(0)
+// =======
+// >>>>>>> 9e604ff (commiting to main branch)
       setPlaying('not playing')
     }
     : undefined
@@ -161,6 +168,7 @@ export default function SongPage({title, composer, link, song}) {
       SetLoading(false);
     }
   };
+// <<<<<<< HEAD
   return (
     <View>
     	<ScrollView
@@ -185,6 +193,126 @@ export default function SongPage({title, composer, link, song}) {
 	      <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
       </View>
     </View>
+// =======
+  // const myData = [
+  //   {
+  //     title: 1,
+  //     'none': false,
+  //     direction: 'left'
+  //   },
+  //   {
+  //     title: title,
+  //     composer: composer,
+  //     link: link,
+  //     song: song,
+  //     to_render: true,
+  //     direction: false
+  //   },
+  //   {
+  //     title: 3,
+  //     'none': false,
+  //     direction: 'right'
+  //   }
+  // ]
+  // const goToPage = (dir) => {
+  //   ref.scrollToIndex({
+  //     animated: false,
+  //     index: 1,
+  //     viewPosition: 0
+  //   })
+  //   if(dir == 'left'){
+  //     if(songindex != 0){
+	      // setSongindex(songindex - 1)
+  //     }
+  //   }
+  //   else {
+  //     if(songindex != array_length - 1){
+	      // setSongindex(songindex + 1)
+  //     }
+  //   }
+  // }
+  // const AudioStatus = () => {
+  //   if (Loaded == true) {
+  //     return <PlayPause />
+  //   } else {
+  //     return <Text></Text>
+  //   }
+  // }
+  // const MainView = ({title, composer, link, song, to_render, direction}) => {
+  //   if(to_render == true){
+  //     return (
+  //       <View>
+	        // <ScrollView
+	          // style={{
+	            // width: Dimensions.get('window').width
+	          // }}
+	          // showsVerticalScrollIndicator={false}
+	        // >
+	          // <View style={styles.container}>
+	            // <View style={styles.header}>
+  //       	      <Text style={styles.title}>{title}</Text>
+	              // <Text style={styles.composer}> - {composer}</Text>
+  //       	    </View>
+  //       	    <View style={styles.body}>
+  //       	      <Text style={{fontSize: zoom, padding: 10}}>{lyrics}</Text>
+  //       	    </View>
+  //       	  </View>
+  //       	</ScrollView>
+  //           <View style={styles.zoomer}>
+  //             <AudioStatus />
+  //             <AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
+  //             <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
+  //           </View>
+  //       </View>
+  //     )
+  //   }
+  //   else {
+  //     return ( 
+	// <View 
+	  // style={styles.loading}
+	// >
+	  // <Text>Loading . . . </Text>
+	// </View>
+  //     )
+  //   }
+  // }
+  // const renderItem = ({item, index}) => {
+  //   return <MainView direction={item.direction} key={item.title} title={item.title} composer={item.composer} link={item.link} song={item.song} to_render={item.to_render} />
+  // }
+  // return (
+// //    <GestureRecognizer
+// //      onSwipeRight={() => setSongindex(songindex - 1)}
+// //      onSwipeLeft={() => setSongindex(songindex + 1)}
+// //      velocityTreshold={0.1}
+// //      directionalOffsetTreshold={20}
+// //      gesturelsClickTreshold={2}
+// //    >
+  // <View>
+  //   <FlatList 
+  //     data={myData}
+  //     ref={(ref) => {
+	// setRef(ref)
+  //     }}
+  //     renderItem={renderItem}
+  //     keyExtractor={item => item.title}
+  //     horizontal
+  //     pagingEnabled={true}
+  //     initialScrollIndex={1}
+  //     extraData={title}
+  //     onScroll={(r) => {
+	// const width = r.nativeEvent.layoutMeasurement.width
+	// if(r.nativeEvent.contentOffset.x == 0){
+	  // goToPage('left')	  
+	// } else if(r.nativeEvent.contentOffset.x == width * 2) {
+	  // goToPage('right')
+	// } else {
+	  // console.log(r.nativeEvent.contentOffset.x)
+	// }
+  //     }}
+  //   />
+  // </View>
+// //    </GestureRecognizer>
+// >>>>>>> 9e604ff (commiting to main branch)
   )
 }
 
