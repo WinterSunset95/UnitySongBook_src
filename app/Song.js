@@ -8,7 +8,7 @@ export default function Song({title, composer, link, song, navigation, array}) {
       if(title == item.title){
 	index = i
 	console.log(index)
-	navigation.navigate('Song', {index, array})
+	navigation.navigate('Pager', {index, array})
       }
     }
   }

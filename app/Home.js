@@ -129,7 +129,7 @@ export default function Home({navigation}) {
 const styles = StyleSheet.create({
   body: {
     padding: 10, 
-    height: '100%'
+    marginBottom: 80
   },
   header: {
     height: 80,
