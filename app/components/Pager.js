@@ -16,10 +16,15 @@ import Slider from '@react-native-community/slider'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import SongPage from './SongPage'
 
-export default function Pager({index, array}) {
+export default function Pager({index, song_title, array}) {
+  const song_index = array.findIndex((element) => element.title == song_title)
   const [ref, setRef] = useState(null)
-  const [songindex, setSongindex] = useState(index)
-  const dataItem = array[songindex]
+  const [songindex, setSongindex] = useState(song_index)
+  console.log(song_index)
+  const sorted_array = array.sort((a, b) => {
+    return a.num - b.num
+  })
+  const dataItem = sorted_array[songindex]
   const {title, composer, link, song} = dataItem
   const array_length = array.length
   const myData = [
@@ -87,7 +92,7 @@ export default function Pager({index, array}) {
     <FlatList 
       data={myData}
       ref={(ref) => {
-	setRef(ref)
+	      setRef(ref)
       }}
       renderItem={renderItem}
       keyExtractor={item => item.title}

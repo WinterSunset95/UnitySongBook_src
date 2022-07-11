@@ -6,9 +6,9 @@ export default function Song({title, composer, link, song, navigation, array}) {
     for(let i=0; i<array.length; i++){
       item = array[i]
       if(title == item.title){
-	index = i
-	console.log(index)
-	navigation.navigate('Pager', {index, array})
+	      index = i
+	      console.log(index)
+	      navigation.navigate('Pager', {index, title, array})
       }
     }
   }

@@ -19,16 +19,16 @@ function SongScreen({route}) {
   const {index, array} = route.params
   return (
     <View style={styles.container}>
-      <SongPage index={index} array={array}/>
+      <SongPage index={index} title={title} array={array}/>
       <StatusBar style="auto" />
     </View>
   );
 }
 function PagerScreen({route}) {
-  const {index, array} = route.params
+  const {index, title, array} = route.params
   return (
     <View style={styles.container}>
-      <Pager index={index} array={array}/>
+      <Pager index={index} song_title={title} array={array}/>
       <StatusBar style="auto" />
     </View>
   );
@@ -42,7 +42,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Song" component={SongScreen}/>
-	<Stack.Screen name="Pager" component={PagerScreen} options={{headerShown: false}}/> 
+	      <Stack.Screen name="Pager" component={PagerScreen} options={{headerShown: false}}/> 
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -74,7 +74,6 @@ export default function Home({navigation}) {
   catch(err) {
     console.log('data does not exist')
   }
-
   const renderItem = ({item}) => {
     // const title = item.title
     // for(let i=0; i<array.length; i++){
@@ -83,7 +82,7 @@ export default function Home({navigation}) {
 	// window.index = i
     //   }
     // }
-    return <Song navigation={navigation} array={array} title={item.title} composer={item.composer} link={item.link} song={item.song}/>
+    return <Song navigation={navigation} array={array} title={item.title} composer={item.composer} link={item.link} song={item.song} num={item.num}/>
   }
   try {
     return (

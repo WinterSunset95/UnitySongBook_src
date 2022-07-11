@@ -9,6 +9,7 @@ import {
   Button, 
   FlatList,
   Dimensions,
+  Image,
   Animated} from 'react-native'
 import { Feather, AntDesign } from '@expo/vector-icons';
 import {Audio} from 'expo-av'
@@ -16,7 +17,7 @@ import Slider from '@react-native-community/slider'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
-export default function SongPage({title, composer, link, song}) {
+export default function SongPage({title, composer, link, song, num}) {
   const [songindex, setSongindex] = useState(index)
   const [lyrics, setLyrics] = useState()
   const [zoom, setZoom] = useState(20)
@@ -25,6 +26,8 @@ export default function SongPage({title, composer, link, song}) {
   const [playing, setPlaying] = useState('not playing')
   const [audlen, setAudlen] = useState(0)
   const [slival, setSlival] = useState(0)
+  const [imgHeight, setImgHeight] = useState(0)
+  const [imgWidth, setImgWidth] = useState(0)
   const sound = useRef(new Audio.Sound())
   const AudioStatus = () => {
     if(Loaded == true) {
@@ -48,9 +51,14 @@ export default function SongPage({title, composer, link, song}) {
     }
   }
   async function getLyrics() {
-    let response = await fetch(link)
-    let my_json = await response.text()
-    setLyrics(my_json)
+    try {
+      let response = await fetch(link)
+      let my_json = await response.text()
+      setLyrics(my_json)
+    }
+    catch {
+      setLyrics(null)
+    }
   }
   getLyrics()
   
@@ -108,31 +116,72 @@ export default function SongPage({title, composer, link, song}) {
       SetLoading(false);
     }
   };
-  return (
-    <View>
-    	<ScrollView
-	      style={{
-	        width: Dimensions.get('window').width
-	      }}
-	  s   howsVerticalScrollIndicator={false}
-	    >
-	      <View style={styles.container}>
-	        <View style={styles.header}>
-	          <Text style={styles.title}>{title}</Text>
-	          <Text style={styles.composer}> - {composer}</Text>
+  let file_type = link.endsWith('.txt')
+  let dev_width = Dimensions.get('window').width
+  let dev_height = Dimensions.get('window').height
+  try {
+    Image.getSize(link, (w, h) => {
+      setImgWidth(dev_width)
+      setImgHeight(dev_width * h/w)
+    })
+  }
+  catch {
+    console.log(imgWidth, imgHeight)
+  }
+  if (file_type == true) {
+    return (
+      <View>
+    	  <ScrollView
+	        style={{
+	          width: Dimensions.get('window').width
+	        }}
+	        showsVerticalScrollIndicator={false}
+	      >
+	        <View style={styles.container}>
+	          <View style={styles.header}>
+	            <Text style={styles.title}>{title}</Text>
+	            <Text style={styles.composer}> - {composer}</Text>
+	          </View>
+	          <View style={styles.body}>
+	            <Text style={{fontSize: zoom, padding: 10}}>{lyrics}</Text>
+	          </View>
 	        </View>
-	        <View style={styles.body}>
-	          <Text style={{fontSize: zoom, padding: 10}}>{lyrics}</Text>
-	        </View>
-	      </View>
-	    </ScrollView>
-      <View style={styles.zoomer}>
-        <AudioStatus />
-	      <AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
-	      <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
+	      </ScrollView>
+        <View style={styles.zoomer}>
+          <AudioStatus />
+	        <AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
+	        <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
+        </View>
       </View>
-    </View>
-  )
+    )
+  } else {
+    return (
+      <View>
+        <ScrollView
+          style={{
+            width: Dimensions.get('window').width
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={{paddingTop: 50}}>
+            <Image 
+              source={{uri: link}}
+              style={{
+                width: dev_width,
+                aspectRatio: 0.3,
+                resizeMode: "contain"
+              }}
+            />
+          </View>
+        </ScrollView>
+        <View style={styles.zoomer}>
+          <AudioStatus />
+	        <AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
+	        <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
+        </View>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
