@@ -27,8 +27,8 @@ export default function SongPage({title, composer, link, song}) {
   const [playing, setPlaying] = useState('not playing')
   const [audlen, setAudlen] = useState(0)
   const [slival, setSlival] = useState(0)
-  const [imagewidth, setImagewidth] = useState('')
-  const [imageheight, setImageheight] = useState('')
+  const [imageheight, setImageheight] = useState(0)
+  const [imagewidth, setImagewidth] = useState(0)
   useEffect(() => {
     Image.getSize(link, (w, h) => {
       setImagewidth(w)
