@@ -25,10 +25,10 @@ function SongScreen({route}) {
   );
 }
 function PagerScreen({route}) {
-  const {index, title, array} = route.params
+  const {index, num, array} = route.params
   return (
     <View style={styles.container}>
-      <Pager index={index} song_title={title} array={array}/>
+      <Pager index={index} num={num} array={array}/>
       <StatusBar style="auto" />
     </View>
   );

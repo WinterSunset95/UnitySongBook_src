@@ -15,9 +15,10 @@ import { Feather, AntDesign } from '@expo/vector-icons';
 import {Audio} from 'expo-av'
 import Slider from '@react-native-community/slider'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import ImageViewer from 'react-native-image-zoom-viewer'
+import ImageZoom from 'react-native-image-pan-zoom';
 
-
-export default function SongPage({title, composer, link, song, num}) {
+export default function SongPage({title, composer, link, song, imagewidth, imageheight}) {
   const [songindex, setSongindex] = useState(index)
   const [lyrics, setLyrics] = useState()
   const [zoom, setZoom] = useState(20)
@@ -26,8 +27,6 @@ export default function SongPage({title, composer, link, song, num}) {
   const [playing, setPlaying] = useState('not playing')
   const [audlen, setAudlen] = useState(0)
   const [slival, setSlival] = useState(0)
-  const [imgHeight, setImgHeight] = useState(0)
-  const [imgWidth, setImgWidth] = useState(0)
   const sound = useRef(new Audio.Sound())
   const AudioStatus = () => {
     if(Loaded == true) {
@@ -109,25 +108,20 @@ export default function SongPage({title, composer, link, song, num}) {
           SetLoaded(true);
         }
       } catch (error) {
-        console.log(error);
+        console.log('Audio not loaded');
         SetLoading(false);
       }
     } else {
       SetLoading(false);
     }
   };
+  const images = [
+    {url: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/sample_img.png'}
+  ]
   let file_type = link.endsWith('.txt')
   let dev_width = Dimensions.get('window').width
   let dev_height = Dimensions.get('window').height
-  try {
-    Image.getSize(link, (w, h) => {
-      setImgWidth(dev_width)
-      setImgHeight(dev_width * h/w)
-    })
-  }
-  catch {
-    console.log(imgWidth, imgHeight)
-  }
+  console.log(imagewidth, imageheight)
   if (file_type == true) {
     return (
       <View>
@@ -164,14 +158,27 @@ export default function SongPage({title, composer, link, song, num}) {
           showsVerticalScrollIndicator={false}
         >
           <View style={{paddingTop: 50}}>
+            <ImageZoom 
+              cropWidth={dev_width}
+              cropHeight={dev_height}
+              imageWidth={imagewidth}
+              imageHeight={imageheight}
+              enableCenterFocus={false}
+              style={{
+                flex: 1,
+                justifyContent: 'center'
+              }}
+            >
             <Image 
               source={{uri: link}}
               style={{
-                width: dev_width,
+                width: 4/5 * dev_width,
                 aspectRatio: 0.3,
-                resizeMode: "contain"
+                resizeMode: "contain",
+                alignSelf:'center'
               }}
             />
+            </ImageZoom>
           </View>
         </ScrollView>
         <View style={styles.zoomer}>

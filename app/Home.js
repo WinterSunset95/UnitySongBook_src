@@ -51,10 +51,10 @@ export default function Home({navigation}) {
       const title_formatted = title.toLowerCase()
       const to_match = title_formatted.slice(0, length)
       if (search_text===to_match) {
-	item['index'] = true
+	      item['index'] = true
       }
       else {
-	item['index'] = false
+	      item['index'] = false
       }
     }
     const results = file.filter(function(item) {
@@ -75,51 +75,44 @@ export default function Home({navigation}) {
     console.log('data does not exist')
   }
   const renderItem = ({item}) => {
-    // const title = item.title
-    // for(let i=0; i<array.length; i++){
-    //   const item = array[i]
-    //   if(title == item.title){
-	// window.index = i
-    //   }
-    // }
     return <Song navigation={navigation} array={array} title={item.title} composer={item.composer} link={item.link} song={item.song} num={item.num}/>
   }
   try {
     return (
       <View>
-      <View style={[styles.header]}>
-        <View style={styles.headerItem}>
-	  <Image source={require('../assets/unity_logo_no_background.png')} style={[styles.logo_image, styles.headerSubItem]}/>
-	  <Text style={[styles.headerSubItem, styles.logoText]}>Unity Church</Text>
-	</View>
-	<View style={styles.headerItem}>
-	  <TextInput 
-	    placeholder={'Search'}
-	    style={[styles.headerSubItem, styles.inputField]}
-	    onChangeText={text => {
-	      setSearch(text)
-	    }}
-	  />
-	  <TouchableOpacity onPress={() => {
-	    Keyboard.dismiss()
-	  }} >
-	    <FontAwesome name="search" size={24} color="black" style={styles.headerSubItem}/>
-	  </TouchableOpacity>
-	</View>
-      </View>
-      <FlatList 
-	style={styles.body}
-	data={json}	
-	renderItem={renderItem}
-	keyExtractor={item => item.title}
-	/>
+        <View style={[styles.header]}>
+          <View style={styles.headerItem}>
+	          <Image source={require('../assets/unity_logo_no_background.png')} style={[styles.logo_image, styles.headerSubItem]}/>
+	          <Text style={[styles.headerSubItem, styles.logoText]}>Unity Church</Text>
+	        </View>
+	        <View style={styles.headerItem}>
+	          <TextInput 
+	            placeholder={'Search'}
+	            style={[styles.headerSubItem, styles.inputField]}
+	            onChangeText={text => {
+	              setSearch(text)
+	            }}
+	          />
+	          <TouchableOpacity onPress={() => {
+	            Keyboard.dismiss()
+	          }} >
+	            <FontAwesome name="search" size={24} color="black" style={styles.headerSubItem}/>
+	          </TouchableOpacity>
+	        </View>
+        </View>
+        <FlatList 
+	        style={styles.body}
+	        data={json}	
+	        renderItem={renderItem}
+	        keyExtractor={item => item.title}
+	      />
       </View>
     )
   }
   catch(err) {
     return (
       <View>
-	<Image source={splash} style={{height: '100%', width: '100%'}}/>
+	      <Image source={splash} style={{height: '100%', width: '100%'}}/>
       </View>
     )
   }

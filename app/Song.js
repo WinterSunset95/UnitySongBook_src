@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
-export default function Song({title, composer, link, song, navigation, array}) {
+export default function Song({title, composer, link, song, num, navigation, array}) {
   const switchScreen = () => {
     for(let i=0; i<array.length; i++){
       item = array[i]
       if(title == item.title){
 	      index = i
 	      console.log(index)
-	      navigation.navigate('Pager', {index, title, array})
+	      navigation.navigate('Pager', {index, num, array})
       }
     }
   }
