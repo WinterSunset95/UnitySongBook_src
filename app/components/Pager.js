@@ -23,8 +23,8 @@ export default function Pager({index, num, array}) {
   // const song_index = array.findIndex((element) => element.title == song_title)
   const [ref, setRef] = useState(null)
   const [songindex, setSongindex] = useState(num_ind)
-  const [imageheight, setImageheight] = useState('')
-  const [imagewidth, setImagewidth] = useState('')
+  const [imageheight, setImageheight] = useState(0)
+  const [imagewidth, setImagewidth] = useState(0)
   const sorted_array = array.sort((a, b) => {
     return a.num - b.num
   })
