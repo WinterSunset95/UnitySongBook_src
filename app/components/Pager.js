@@ -23,17 +23,11 @@ export default function Pager({index, num, array}) {
   // const song_index = array.findIndex((element) => element.title == song_title)
   const [ref, setRef] = useState(null)
   const [songindex, setSongindex] = useState(num_ind)
-  const [imageheight, setImageheight] = useState('')
-  const [imagewidth, setImagewidth] = useState('')
   const sorted_array = array.sort((a, b) => {
     return a.num - b.num
   })
   const dataItem = sorted_array[songindex]
   const {title, composer, link, song} = dataItem
-  Image.getSize(link, (w, h) => {
-    setImagewidth(w)
-    setImageheight(h)
-  })
   const array_length = array.length
   const myData = [
     {
@@ -47,9 +41,7 @@ export default function Pager({index, num, array}) {
       link: link,
       song: song,
       to_render: true,
-      direction: false,
-      img_width: imagewidth,
-      imageheight: imageheight
+      direction: false
     },
     {
       title: 3,
@@ -77,7 +69,7 @@ export default function Pager({index, num, array}) {
   const MainView = ({title, composer, link, song, to_render, direction}) => {
     if(to_render == true){
       return (
-	<SongPage title={title} composer={composer} link={link} song={song} imageheight={imageheight} imagewidth={imagewidth}/>
+	<SongPage title={title} composer={composer} link={link} song={song} />
 //	<View style={styles.loading}>
 //	  <Text>This is supposed to be the song page {title} {composer} {link} {song}</Text>
 //

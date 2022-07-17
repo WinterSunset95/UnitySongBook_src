@@ -18,7 +18,7 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import ImageViewer from 'react-native-image-zoom-viewer'
 import ImageZoom from 'react-native-image-pan-zoom';
 
-export default function SongPage({title, composer, link, song, imagewidth, imageheight}) {
+export default function SongPage({title, composer, link, song}) {
   const [songindex, setSongindex] = useState(index)
   const [lyrics, setLyrics] = useState()
   const [zoom, setZoom] = useState(20)
@@ -27,6 +27,14 @@ export default function SongPage({title, composer, link, song, imagewidth, image
   const [playing, setPlaying] = useState('not playing')
   const [audlen, setAudlen] = useState(0)
   const [slival, setSlival] = useState(0)
+  const [imagewidth, setImagewidth] = useState('')
+  const [imageheight, setImageheight] = useState('')
+  useEffect(() => {
+    Image.getSize(link, (w, h) => {
+      setImagewidth(w)
+      setImageheight(h)
+    })
+  }, [])
   const sound = useRef(new Audio.Sound())
   const AudioStatus = () => {
     if(Loaded == true) {
@@ -121,7 +129,6 @@ export default function SongPage({title, composer, link, song, imagewidth, image
   let file_type = link.endsWith('.txt')
   let dev_width = Dimensions.get('window').width
   let dev_height = Dimensions.get('window').height
-  console.log(imagewidth, imageheight)
   if (file_type == true) {
     return (
       <View>
@@ -161,8 +168,8 @@ export default function SongPage({title, composer, link, song, imagewidth, image
             <ImageZoom 
               cropWidth={dev_width}
               cropHeight={dev_height}
-              imageWidth={imagewidth}
-              imageHeight={imageheight}
+              imageWidth={dev_width}
+              imageHeight={dev_height + 1/3 * dev_height}
               enableCenterFocus={false}
               style={{
                 flex: 1,
