@@ -17,6 +17,7 @@ import Slider from '@react-native-community/slider'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import ImageViewer from 'react-native-image-zoom-viewer'
 import ImageZoom from 'react-native-image-pan-zoom';
+import { WebView } from 'react-native-webview'
 
 export default function SongPage({title, composer, link, song}) {
   const [songindex, setSongindex] = useState(index)
@@ -126,77 +127,10 @@ export default function SongPage({title, composer, link, song}) {
   const images = [
     {url: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/sample_img.png'}
   ]
-  let file_type = link.endsWith('.txt')
-  let dev_width = Dimensions.get('window').width
-  let dev_height = Dimensions.get('window').height
-  if (file_type == true) {
     return (
-      <View>
-    	  <ScrollView
-	        style={{
-	          width: Dimensions.get('window').width
-	        }}
-	        showsVerticalScrollIndicator={false}
-	      >
-	        <View style={styles.container}>
-	          <View style={styles.header}>
-	            <Text style={styles.title}>{title}</Text>
-	            <Text style={styles.composer}> - {composer}</Text>
-	          </View>
-	          <View style={styles.body}>
-	            <Text style={{fontSize: zoom, padding: 10}}>{lyrics}</Text>
-	          </View>
-	        </View>
-	      </ScrollView>
-        <View style={styles.zoomer}>
-          <AudioStatus />
-	        <AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
-	        <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
-        </View>
-      </View>
-    )
-  } else {
-    return (
-      <View>
-        <ScrollView
-          style={{
-            width: Dimensions.get('window').width
-          }}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={{paddingTop: 50}}>
-            <ImageZoom 
-              cropWidth={dev_width}
-              cropHeight={dev_height}
-              imageWidth={dev_width}
-              imageHeight={dev_height + 1/3 * dev_height}
-              enableCenterFocus={false}
-              style={{
-                flex: 1,
-                justifyContent: 'center'
-              }}
-            >
-            <Image 
-              source={{uri: link}}
-              style={{
-                width: 4/5 * dev_width,
-                aspectRatio: 0.3,
-                resizeMode: "contain",
-                alignSelf:'center'
-              }}
-            />
-            </ImageZoom>
-          </View>
-        </ScrollView>
-        <View style={styles.zoomer}>
-          <AudioStatus />
-	        <AntDesign onPress={() => setZoom(zoom + 1)} style={styles.zoomItem} name="pluscircle" size={40} color="black" />
-	        <AntDesign onPress={() => setZoom(zoom - 1)} style={styles.zoomItem} name="minuscircle" size={40} color="black" />
-        </View>
-      </View>
+      <WebView source={{ uri: link }} style={{ width: Dimensions.get('window').width}}/>
     )
   }
-}
 
 const styles = StyleSheet.create({
   audio: {
