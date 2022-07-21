@@ -127,8 +127,9 @@ export default function SongPage({title, composer, link, song}) {
   const images = [
     {url: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/sample_img.png'}
   ]
+  const main_link = 'https://wintersunset95.github.io/UnitySongBook/lyricspage.html?src=' + link
     return (
-      <WebView source={{ uri: link }} style={{ width: Dimensions.get('window').width}}/>
+      <WebView source={{ uri: main_link }} style={{ width: Dimensions.get('window').width}}/>
     )
   }
 
