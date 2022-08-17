@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { FontAwesome } from '@expo/vector-icons'
+import data from './output'
 import { 
   StyleSheet, 
   Text, 
@@ -32,7 +33,7 @@ export default function Home({navigation}) {
   async function fetch_autumn() {
     let response = await fetch('https://wintersunset95.github.io/UnitySongBook/list.json')
     let my_json = await response.json()
-    work_with_json(my_json)
+    work_with_json(data)
   }
   function work_with_json(file) {
     file.sort(GetSortOrder("title"))
@@ -83,7 +84,7 @@ export default function Home({navigation}) {
         <View style={[styles.header]}>
           <View style={styles.headerItem}>
 	          <Image source={require('../assets/unity_logo_no_background.png')} style={[styles.logo_image, styles.headerSubItem]}/>
-	          <Text style={[styles.headerSubItem, styles.logoText]}>Unity Church</Text>
+	          <Text style={[styles.headerSubItem, styles.logoText]}>Unity Church Hlabu</Text>
 	        </View>
 	        <View style={styles.headerItem}>
 	          <TextInput 
@@ -133,11 +134,11 @@ const styles = StyleSheet.create({
   },
   headerItem: {
     alignItems: 'center', 
-    flexDirection: 'row', 
+    flexDirection: 'row',
     width: '50%'
   },
   headerSubItem: {
-    margin: 5, 
+    margin: 5,
   }, 
   inputField: {
     width: '80%', 
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain', 
   },
   logoText: {
-    fontSize: 25,
+    fontSize: 15,
   },
   test: {
     height: 500,
