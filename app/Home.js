@@ -84,7 +84,10 @@ export default function Home({navigation}) {
         <View style={[styles.header]}>
           <View style={styles.headerItem}>
 	          <Image source={require('../assets/unity_logo_no_background.png')} style={[styles.logo_image, styles.headerSubItem]}/>
-	          <Text style={[styles.headerSubItem, styles.logoText]}>Unity Church Hlabu</Text>
+            <View style={{flexDirection: 'column', marginLeft: 10}}>
+	            <Text style={[styles.logoText]}>Unity Church</Text>
+              <Text style={{fontSize: 10}}>Hlabu</Text>
+            </View>
 	        </View>
 	        <View style={styles.headerItem}>
 	          <TextInput 

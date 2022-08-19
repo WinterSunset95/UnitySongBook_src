@@ -19,7 +19,7 @@ export default function Lyrics ({title, composer, link, song, num}) {
                 cropWidth={Dimensions.get('window').width}
                 cropHeight={Dimensions.get('window').height}
                 imageWidth={Dimensions.get('window').width}
-                imageHeight={imgH/2}
+                imageHeight={imgH/1.5}
                 enableCenterFocus={false}
             >
               <Image source={link} style={{ 
