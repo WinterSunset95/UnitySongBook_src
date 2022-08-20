@@ -483,6 +483,160 @@ const data = [
   "num": 71
 },
 {
+  "title": "Thlirteh chatuan in ropui",
+  "composer": "Pu B. Lalthlengliana",
+  link: require('../assets/lyrics/74-thlirteh chatuan in ropui-pu b_lalthlengliana.png'),
+  "song": " ",
+  "num": 74
+}, 
+{
+  "title": "Vante ro pa lawmna",
+  "composer": "Pu Lalhmunsiama",
+  link: require('../assets/lyrics/76-vante ro pa lawmna-pu lalhmunsiama.png'),
+  "song": " ",
+  "num": 76
+}, 
+{
+  "title": "Tithianghlimtu leh tihthianghlimte",
+  "composer": "Pu H. Sangthanga",
+  link: require('../assets/lyrics/78-tithianghlimtu leh tihthianghlimte-pu h_sangthanga.png'),
+  "song": " ",
+  "num": 78
+}, 
+{
+  "title": "Eini rawi hi tlang tawk thei",
+  "composer": "Pi Lalrothar",
+  link: require('../assets/lyrics/80-eini rawi hi tlang tawk thei-pi lalrothar.png'),
+  "song": " ",
+  "num": 80
+}, 
+{
+  "title": "Kan tlang ram mawi",
+  "composer": "Pu Sailothanga Sailo",
+  link: require('../assets/lyrics/82-kan tlang ram mawi-pu sailothanga sailo.png'),
+  "song": " ",
+  "num": 82
+}, 
+{
+  "title": "Siamtu rorel thianghlim",
+  "composer": "Pu Sailothanga Sailo",
+  link: require('../assets/lyrics/84-siamtu rorel thianghlim-pu sailothanga sailo.png'),
+  "song": " ",
+  "num": 84
+}, 
+{
+  "title": "Chatuan damna thuruk",
+  "composer": "Chawngsiamliana",
+  link: require('../assets/lyrics/86-chatuan damna thuruk-chawngsiamliana.png'),
+  "song": " ",
+  "num": 86
+}, 
+{
+  "title": "Ramthar zalenna ram",
+  "composer": "Pu Lalhringlien",
+  link: require('../assets/lyrics/92-ramthar zalenna ram-pu lalhringlien.png'),
+  "song": " ",
+  "num": 92
+}, 
+{
+  "title": "Lei kum leh ni her liam zel",
+  "composer": "Pu R. Vanlalzauva",
+  link: require('../assets/lyrics/94-lei kum leh ni her liam zel-pu r_vanlalzauva.png'),
+  "song": " ",
+  "num": 94
+}, 
+{
+  "title": "Nami vahmangsa",
+  "composer": "Upa Seikhojang Baite",
+  link: require('../assets/lyrics/96-nami vahmangsa-upa seikhojang baite.png'),
+  "song": " ",
+  "num": 96
+}, 
+{
+  "title": "Mi tukhawm a hringna",
+  "composer": "Lalsawmi",
+  link: require('../assets/lyrics/98-mi tukhawm a hringna-lalsawmi.png'),
+  "song": " ",
+  "num": 98
+}, 
+{
+  "title": "Retheih le hausate",
+  "composer": "Pu H. Lalenvela",
+  link: require('../assets/lyrics/100-retheih leh hausate-pu h_lalenvela.png'),
+  "song": " ",
+  "num": 100
+}, 
+{
+  "title": "Pakai ama tah a vantil pipu",
+  "composer": "Pu Tongzalut Sitlhou",
+  link: require('../assets/lyrics/102-pakai ama tah a vantil pipu-pu tongzalut sithlou.png'),
+  "song": " ",
+  "num": 102
+}, 
+{
+  "title": "Chatuon hringna chu",
+  "composer": "Upa Lalramlien Sungte",
+  link: require('../assets/lyrics/105-chatuon hringna chu-upa lalramlien sungte.png'),
+  "song": " ",
+  "num": 105
+}, 
+{
+  "title": "Aw pakai goulu neipeh",
+  "composer": "Pu Tongzalut Sitlhou",
+  link: require('../assets/lyrics/106-aw pakai goulu neipeh-pu tongzalut sitlhou.png'),
+  "song": " ",
+  "num": 106
+}, 
+{
+  "title": "Kalvaria chatuon rorelna",
+  "composer": "Rev. Thangsuolien",
+  link: require('../assets/lyrics/109-kalvaria chatuon rorelna-rev_thangsuolien.png'),
+  "song": " ",
+  "num": 109
+}, 
+{
+  "title": "Thuoihrui sawm le pahni",
+  "composer": "Evan Hrangkaplien",
+  link: require('../assets/lyrics/110-thuoihruoi sawm le pahni-evan_hrangkaplien.png'),
+  "song": " ",
+  "num": 110
+}, 
+{
+  "title": "Rinna hi thil beisei",
+  "composer": "Pu C. Pachhunga",
+  link: require('../assets/lyrics/112-rinna hi thil beisei-pu c_pachhunga.png'),
+  "song": " ",
+  "num": 112
+}, 
+{
+  "title": "Aw kan pathian lalber chuan",
+  "composer": "Pu C. Rochhuma",
+  link: require('../assets/lyrics/113-aw kan pathian lalber chuan-pu c_rochhuma.png'),
+  "song": " ",
+  "num": 113
+}, 
+{
+  "title": "Vanram neitu naupang te te",
+  "composer": "Pu Liankima",
+  link: require('../assets/lyrics/116-vanram neitu naupang te te-pu liankima.png'),
+  "song": " ",
+  "num": 116
+}, 
+{
+  "title": "Naupang te te nimah ila",
+  "composer": "Pu C. Pachhunga",
+  link: require('../assets/lyrics/117-naupang te te numah ila-pu c_pachhunga.png'),
+  "song": " ",
+  "num": 117
+}, 
+{
+  "title": "Khawvelin a mamawh",
+  "composer": "Pu T. Lalrokima",
+  link: require('../assets/lyrics/120-khawvelin a mamawh-pu t_lalrokima.png'),
+  "song": " ",
+  "num": 120
+},
+{
   "title": "Accident a um nawh lalram ah",
   "composer": "Rev. Thangsuolien",
   link: require('../assets/lyrics/122-accident_a_um_nawh_lalram_ah-rev-thangsuolien.png'),
